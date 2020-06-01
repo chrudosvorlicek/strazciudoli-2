@@ -1,0 +1,63 @@
+version: "2"
+services:
+  nginx:
+    env_file:
+    - .env
+    build:
+      context: .
+      dockerfile: docker/nginx/dev/Dockerfile
+    ports:
+      - 8000:80
+    volumes:
+      - ./public:/var/www/data/public
+      - ./storage/app/public:/data/public/storage:ro
+    depends_on:
+      - php-fpm
+  php-fpm:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: docker/php-fpm/dev/Dockerfile
+    volumes:
+      - ./:/var/www/data
+      - ./docker/php-fpm/scripts:/var/www/custom-scripts:ro
+      - composer-data:/composer
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hodnotime
+    volumes:
+      - mysql-data:/var/lib/mysql
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    environment:
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_DEFAULT_SERVER: mysql
+    depends_on:
+      - mysql
+  redis:
+    image: redis
+    volumes:
+    - redis-data:/data
+  node:
+    environment:
+      - npm_config_cache=/home/node/.cache/npm
+      - APP_ENV=local
+    build:
+      context: ./docker/node
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+      - ./docker/node/entrypoint.sh:/entrypoint.sh
+      - node-data:/home/node/.cache
+volumes:
+  mysql-data:
+  redis-data:
+  composer-data:
+  node-data:
