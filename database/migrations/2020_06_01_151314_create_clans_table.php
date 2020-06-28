@@ -18,7 +18,7 @@ class CreateClansTable extends Migration
             $table->collation = 'utf8mb4_czech_ci';
             $table->id();
             $table->string('name',2048);
-            $table->unsignedBigInteger('user_id')->comment('owacira');
+            $table->unsignedBigInteger('user_id')->nullable()->comment('owacira');
             $table->text('description')->nullable()->comment('popis klanu');
             $table->timestampsTz();
             $table->softDeletesTz();

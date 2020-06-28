@@ -17,12 +17,11 @@ class CreateFunctionsTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_czech_ci';
             $table->id();
-            $table->unsignedBigInteger('function_id');
-            $table->unsignedBigInteger('user_id');
+            $table->string('name');
+            $table->boolean('is_in_contact')->default(true);
+            $table->text('description')->nullable();
             $table->timestampsTz();
             $table->softDeletesTz();
-            $table->foreign('function_id')->references('id')->on('functions');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
