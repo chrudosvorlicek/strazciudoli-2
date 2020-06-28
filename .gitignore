@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/js
+/public/css
+/public/img
 /storage/*.key
 /vendor
 .env
@@ -12,3 +15,4 @@ npm-debug.log
 yarn-error.log
 docker-compose.yml
 /.idea
+*~
