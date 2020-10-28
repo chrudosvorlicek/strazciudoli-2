@@ -1,0 +1,72 @@
+// variables
+
+$a-color: #b50202;
+$a-login-color: white;
+$bgr-footer: url('/images/lesy-pruhledne.png') center top/cover no-repeat;
+$bgr-image: url('/images/bgr-2.png') center top/cover no-repeat #fff;
+$bgr-inner-page: url('/images/simple-old-paper-1-transparent.jpg') center top/cover no-repeat #fff;
+$page-footer-size: 500px;
+$page-footer-offset-size: 400px;
+
+
+// html elements
+
+html {
+    font-family: $font-family-sans-serif;
+}
+
+
+a {
+    color: $a-color;
+}
+
+a:hover {
+    color: $a-color;
+    text-decoration: underline;
+}
+
+
+body {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background: $bgr-image;
+}
+
+p {
+    font-weight: normal;
+}
+
+// Classes
+
+@import "pieces/layout";
+
+@import "pieces/about";
+
+.a-black {
+    color: #212529;
+}
+
+.a-black:hover {
+    color: #212529;
+    text-decoration: none;
+}
+
+.footer-llm-text {
+    color: #fbf2ca;
+    line-height: 2rem;
+    font-size: 1.75rem;
+}
+
+.header-llm-text {
+    line-height: 2rem;
+    font-size: 1.5rem;
+}
+
+.no-decoration {
+    list-style-type: none;
+}
+
+

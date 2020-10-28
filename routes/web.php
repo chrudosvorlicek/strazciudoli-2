@@ -1,14 +1,19 @@
 <?php
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/o-nas', function () {
-    return view('about');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/o-kmeni', function () {
+    return view('about.long');
+})->name('about');
+Route::get('/zasvecovaci-stezka/{type?}/', function ($type = null) {
+    return view('about.trail', ['type' => $type]);
+})->name('about.trail');
 
-Route::get('/akce', function () {return view('event/events');})->name('akce');
-Route::get('/detail-akce/{event?}', 'EventController@get')->name('event-detail');
-Route::post('/events', 'EventController@index')->name('events');
+Route::get('/detail-akce/{event}', [EventController::class, 'get'])
+    ->name('event-detail');
+Route::post('/events', [EventController::class, 'index'])->name('events');
