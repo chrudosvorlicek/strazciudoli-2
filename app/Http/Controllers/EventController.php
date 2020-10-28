@@ -6,33 +6,34 @@ use App\Models\Event;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
+use Nette\Utils\Json;
 
 class EventController extends Controller
 {
-    private static $pagination = [
-        'perPage' => 10,
-        'page' => 1,
-    ];
-
     /**
-     * @param Request $request
-     * @return JsonResponse
+     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @throws \Nette\Utils\JsonException
      */
-    public function index(Request $request)
+    public function index()
     {
-        $pagination = $request->post('pagination', self::$pagination);
-        $events = $this->getEvents($request);
-        $eventsCount = $events->count();
-        $events->paginate($pagination['perPage'], ['*'], 'page', $pagination['page']);
-        return response()->json([
-            'events' => $events->get(),
-            'eventsCount' => $eventsCount,
-            'pagination' => $pagination,
+        $fields = [
+            ['key' => 'id', 'label' => 'Id', 'sortable' => true],
+            ['key' => 'name', 'label' => 'Akce', 'sortable' => true],
+            ['key' => 'place', 'label' => 'Místo', 'sortable' => true],
+            ['key' => 'datetime_from', 'label' => 'Od', 'sortable' => true],
+            ['key' => 'datetime_to', 'label' => 'Do', 'sortable' => true],
+            ['key' => 'user_id', 'label' => 'Org', 'sortable' => true],
+            ['key' => 'price', 'label' => 'Cena', 'sortable' => true],
+        ];
+        return view('event.plan', [
+            'countKey' => 'eventsCount',
+            'dataKey' => 'events',
+            'endpoint' => '/api/events',
+            'fields' => Json::encode($fields)
         ]);
     }
 

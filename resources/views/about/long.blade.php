@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="about">
+    <h2>O kmeni</h2>
     <p>
         Název Strážci údolí je odvozen od nedalekého Prokopského a Dalejského údolí na Praze 13, kde kmen sídlí.
         Ve znaku má modrý luk se třemi šípy které symbolizují základní tři rody, které ve kmeni na začátku vznikly.
