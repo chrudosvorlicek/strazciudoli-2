@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'O nás')
+
 @section('content')
 <div class="about">
     <p>

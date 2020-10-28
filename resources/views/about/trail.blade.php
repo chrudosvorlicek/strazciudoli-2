@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title','Zasvěcovací stezka')
 
 @section('content')
     <div class="row-cols-1">
