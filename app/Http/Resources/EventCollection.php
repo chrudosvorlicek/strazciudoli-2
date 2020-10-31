@@ -17,7 +17,7 @@ class EventCollection extends ResourceCollection
      */
     public function __construct(Collection $resource, int $eventCount)
     {
-        $this->eventCount =  $eventCount;
+        $this->eventCount = $eventCount;
         parent::__construct($resource);
     }
 

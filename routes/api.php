@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/events', [EventController::class, 'index'])->name('events-api');
+Route::post('/events/previous', [EventController::class, 'previous'])->name('previous-events-api');

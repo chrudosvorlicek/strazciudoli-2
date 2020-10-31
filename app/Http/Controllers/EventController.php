@@ -3,37 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Http\Resources\Event as EventResource;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 
 class EventController extends Controller
 {
     /**
      * @return Application|Factory|\Illuminate\Contracts\View\View
-     * @throws \Nette\Utils\JsonException
+     * @throws JsonException
      */
     public function index()
     {
-        $fields = [
-            ['key' => 'id', 'label' => 'Id', 'sortable' => true],
-            ['key' => 'name', 'label' => 'Akce', 'sortable' => true],
-            ['key' => 'place', 'label' => 'Místo', 'sortable' => true],
-            ['key' => 'datetime_from', 'label' => 'Od', 'sortable' => true],
-            ['key' => 'datetime_to', 'label' => 'Do', 'sortable' => true],
-            ['key' => 'user_id', 'label' => 'Org', 'sortable' => true],
-            ['key' => 'price', 'label' => 'Cena', 'sortable' => true],
-        ];
+        $fields = EventResource::getTableFields();
         return view('event.plan', [
             'countKey' => 'eventsCount',
             'dataKey' => 'events',
             'endpoint' => '/api/events',
-            'fields' => Json::encode($fields)
+            'fields' => Json::encode($fields),
+            'type' => 'plan',
+        ]);
+    }
+
+    public function previous()
+    {
+        $fields = EventResource::getTableFields();
+        return view('event.previous', [
+            'countKey' => 'eventsCount',
+            'dataKey' => 'events',
+            'endpoint' => '/api/events/previous',
+            'fields' => Json::encode($fields),
+            'type' => 'previous',
         ]);
     }
 
@@ -48,19 +53,5 @@ class EventController extends Controller
             return redirect(route('akce'));
         }
         return view('event/detail', compact('event'));
-    }
-
-
-    /**
-     * @param Request $request
-     * @return Builder
-     */
-    private function getEvents(Request $request): Builder
-    {
-        $filter = $request->post('filter', []);
-        if (empty($filter)) {
-            return Event::query();
-        }
-        return Event::filter($filter);
     }
 }

@@ -13,6 +13,9 @@ class Event extends Model
 {
     use SoftDeletes;
 
+
+    public const TIME_FORMAT = 'd.m.Y H:i';
+
     protected $fillable = [
         'name',
         'description',
@@ -52,6 +55,29 @@ class Event extends Model
         return $query;
     }
 
+    public function scopePrevious(Builder $query): Builder
+    {
+        return $query->where(function ($query) {
+            $today = date('Y-m-d');
+            $query->where('datetime_to', '<=', $today)
+                ->orWhere(function ($query) use ($today) {
+                    $query->where('datetime_from', '<=', $today)
+                        ->where('datetime_to', '>=', $today);
+                });
+        });
+    }
+
+    public function scopeUpcoming(Builder $query): Builder
+    {
+        return $query->where(function ($query) {
+            $today = date('Y-m-d');
+            $query->where('datetime_from', '>=', $today)
+                ->orWhere(function ($query) use ($today) {
+                    $query->where('datetime_from', '<=', $today)
+                        ->where('datetime_to', '>=', $today);
+                });
+        });
+    }
 
     # ========= #
     # Relations #

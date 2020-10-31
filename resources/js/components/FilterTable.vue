@@ -5,12 +5,13 @@
             :total-rows="itemsCount"
             :per-page="perPage"
             aria-controls="plan-table"
+            align="center"
         ></b-pagination>
 
         <b-table hover
                  id="plan-table"
                  :busy.sync="isBusy"
-                 :items="eventsProvider"
+                 :items="dataProvider"
                  :fields="fields"
                  :per-page="perPage"
                  :current-page="currentPage"
@@ -22,7 +23,9 @@
             :total-rows.sync="itemsCount"
             :per-page="perPage"
             aria-controls="plan-table"
-        ></b-pagination>
+            align="center"
+        >
+        </b-pagination>
     </div>
 </template>
 
@@ -50,7 +53,7 @@ export default {
         }
     },
     methods: {
-        async eventsProvider(ctx) {
+        async dataProvider(ctx) {
             let data = {
                 currentPage: ctx.currentPage,
                 perPage: ctx.perPage,
@@ -64,5 +67,4 @@ export default {
         },
     },
 }
-
 </script>

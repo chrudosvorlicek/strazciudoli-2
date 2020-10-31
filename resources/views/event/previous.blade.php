@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('Plán činnosti'))
+@section('title', __('Proběhlé akce'))
 @section('content')
     @include('event.navbar')
     <filter-table

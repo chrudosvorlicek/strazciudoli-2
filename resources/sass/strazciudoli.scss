@@ -6,7 +6,7 @@ $bgr-footer: url('/images/lesy-pruhledne.png') center top/cover no-repeat;
 $bgr-image: url('/images/bgr-2.png') center top/cover no-repeat #fff;
 $bgr-inner-page: url('/images/simple-old-paper-1-transparent.jpg') center top/cover no-repeat #fff;
 $page-footer-size: 500px;
-$page-footer-offset-size: 400px;
+$page-footer-offset-size: 300px;
 
 
 // html elements
@@ -42,8 +42,10 @@ p {
 // Classes
 
 @import "pieces/layout";
-
 @import "pieces/about";
+@import "pieces/navbars";
+@import "pieces/table";
+
 
 .a-black {
     color: #212529;

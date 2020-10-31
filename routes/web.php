@@ -18,5 +18,6 @@ Route::get('/zasvecovaci-stezka/{type?}/', function ($type = null) {
 
 // Events
 Route::get('/detail-akce/{event}', [EventController::class, 'get'])->name('event-detail');
-Route::get('/plan', [EventController::class,'index'])->name('events');
+Route::get('/plan-akci', [EventController::class,'index'])->name('events');
+Route::get('/probehle-akce', [EventController::class,'previous'])->name('previous-events');
 
